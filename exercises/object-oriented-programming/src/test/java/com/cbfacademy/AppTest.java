@@ -13,7 +13,7 @@ public class AppTest {
     @Test
     @DisplayName("creates the app")
     public void createsAnApp() {
-        final App app = new App();
+        final Car app = new Car();
 
         assertThat(app, is(notNullValue()));
     }

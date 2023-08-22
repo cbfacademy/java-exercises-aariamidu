@@ -30,7 +30,7 @@ public class FileReaderExample {
             // In case any IOException occurs during file operations, it will be caught, and
             // the exception details will be printed.
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 }

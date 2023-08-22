@@ -23,17 +23,20 @@ try {
 
 }
 ```
-
+/* This one is legal because you cant have two finallys.*/
 ### <ins>Question 2</ins>
 
 What exception types can be caught by the following handler?
+*/java.lang.Exception*/
 ```java
 catch (Exception e) {
     
 }
+
 ```
 
 What is wrong with using this type of exception handler?
+/* It catches all exceptions in subclass which means it will also fix the ones you dont want it to fix. */
 
 ### <ins>Question 3</ins>
 
@@ -48,6 +51,7 @@ try {
 
 }
 ```
+*/ Exception e is generic so when ran, it will catch everything. So we need to put ArithmeticException a before it so that can be ran first and excecuted.  */
 
 ### <ins>Question 4</ins>
 
@@ -58,7 +62,7 @@ A[0] = 0;
 
 The above code produces (choose 1):
 
-- [ ] an error
+- [ x] an error (unchecked)
 - [ ] a checked exception
 - [ ] a checked exception
 - [ ] a compile error
@@ -71,7 +75,7 @@ The JVM starts running your program, but the JVM can't find the Java platform cl
 
 What happens (choose 1):
 
-- [ ] an error
+- [x] an error
 - [ ] a checked exception
 - [ ] a checked exception
 - [ ] a compile error
