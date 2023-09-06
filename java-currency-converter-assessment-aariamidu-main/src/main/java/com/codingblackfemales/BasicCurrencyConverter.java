@@ -26,12 +26,19 @@ public class BasicCurrencyConverter implements CurrencyConverter {
         if (destinationCurrencyCode == null) {
             throw new IllegalArgumentException("Invalid currency codes provided.");
         }
+        if (sourceCurrencyCode == null) {
+            throw new IllegalArgumentException("Invalid currency codes provided.");
+        }
+        if (exchangeRates == null) {
+            throw new IllegalArgumentException("Invalid exchange rates provided.");
+        }
         Double sourceExchangeRate = exchangeRates.get(sourceCurrencyCode);
         Double destinationExchangeRate = exchangeRates.get(destinationCurrencyCode);
 
         double convertedAmount = (destinationExchangeRate / sourceExchangeRate);
 
         return convertedAmount;
+
     }
 
     public static void main(String[] args) {
@@ -44,9 +51,9 @@ public class BasicCurrencyConverter implements CurrencyConverter {
         System.out.println("Available currency codes: " + Arrays.toString(currencyCodes));
 
         // Source currency code, destination currency code and amount being converted
-        String sourceCurrencyCode = "GBP";
+        String sourceCurrencyCode = "JPY";
         String destinationCurrencyCode = "EUR";
-        Double amount = 200.00;
+        Double amount = 200.0;
 
         // Convert currency
         double convertedAmount = basicCurrencyConverter.convertCurrency(sourceCurrencyCode, destinationCurrencyCode,
