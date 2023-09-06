@@ -69,13 +69,13 @@ git checkout -b ${your-branch-name}
 4. Install the project dependencies and validate your project by running the following command in a terminal at the root of your project:
 
 ```bash
-[./mvnw clean validate](../NEW-java-currency-converter-assessment-aariamidu/src/test/java/com/codingblackfemales/BasicCurrencyConverterTest.java)
+./mvnw clean validate
 ```
 
 If you are on a Windows machine, that will be:
 
 ```bat
-mvnw clean validate
+.mvnw clean validate
 ```
 
 You should see the following console output:

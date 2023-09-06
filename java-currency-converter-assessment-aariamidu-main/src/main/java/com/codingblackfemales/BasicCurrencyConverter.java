@@ -1,17 +1,14 @@
 package com.codingblackfemales;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
+import java.util.Map;
 
 public class BasicCurrencyConverter implements CurrencyConverter {
     public Map<String, Double> exchangeRates;
 
-    public BasicCurrencyConverter(HashMap<String, Double> exchangeRates) {
-        this.exchangeRates = exchangeRates;
+    public BasicCurrencyConverter(Currencies currencies) {
+        this.exchangeRates = currencies.getAllExchangeRates();
     }
 
     public double convertCurrency(String sourceCurrencyCode, String destinationCurrencyCode, double amount) {
@@ -20,38 +17,27 @@ public class BasicCurrencyConverter implements CurrencyConverter {
     }
 
     public String[] getCurrencyCodes() {
-        Set<String> currencyCodes = new HashSet<>();
-        for (String exchangeRateKey : exchangeRates.keySet()) {
-            String[] currencies = exchangeRateKey.split(":");
-            if (currencies.length >= 2) {
-                currencyCodes.add(currencies[0]);
-                currencyCodes.add(currencies[1]);
-            } else {
-                currencyCodes.add(exchangeRateKey);
-            }
-        }
-        return currencyCodes.toArray(new String[0]);
+        String[] currencyCodes = exchangeRates.keySet().toArray(String[]::new);
+        return currencyCodes;
     }
 
     public double getExchangeRate(String sourceCurrencyCode, String destinationCurrencyCode) {
-        String exchangeRateKey = sourceCurrencyCode + ":" + destinationCurrencyCode;
-        Double exchangeRate = exchangeRates.get(exchangeRateKey);
-        if (exchangeRate == null) {
-            System.out.println(
-                    "Exchange rate not found for " + exchangeRateKey + ". Using default exchange rate 1.0 in GBP");
-            return 1.0; // Return default exchange rate
+
+        if (destinationCurrencyCode == null) {
+            throw new IllegalArgumentException("Invalid currency codes provided.");
         }
-        if (exchangeRate <= 0.0) {
-            throw new IllegalArgumentException("This is an invalid exchange rate for " + exchangeRateKey + ": " + exchangeRate);
-        }
-        return exchangeRate;
+        Double sourceExchangeRate = exchangeRates.get(sourceCurrencyCode);
+        Double destinationExchangeRate = exchangeRates.get(destinationCurrencyCode);
+
+        double convertedAmount = (destinationExchangeRate / sourceExchangeRate);
+
+        return convertedAmount;
     }
 
     public static void main(String[] args) {
-        //CurrenciesGBP class with the getAllExchangeRates() method
+        // CurrenciesGBP class with the getAllExchangeRates() method
         CurrenciesGBP currenciesGBP = new CurrenciesGBP();
-        HashMap<String, Double> exchangeRates = currenciesGBP.getAllExchangeRates();
-        BasicCurrencyConverter basicCurrencyConverter = new BasicCurrencyConverter(exchangeRates);
+        BasicCurrencyConverter basicCurrencyConverter = new BasicCurrencyConverter(currenciesGBP);
 
         // Get available currency codes
         String[] currencyCodes = basicCurrencyConverter.getCurrencyCodes();
@@ -60,7 +46,7 @@ public class BasicCurrencyConverter implements CurrencyConverter {
         // Source currency code, destination currency code and amount being converted
         String sourceCurrencyCode = "GBP";
         String destinationCurrencyCode = "EUR";
-        double amount = 200.0;
+        Double amount = 200.00;
 
         // Convert currency
         double convertedAmount = basicCurrencyConverter.convertCurrency(sourceCurrencyCode, destinationCurrencyCode,
