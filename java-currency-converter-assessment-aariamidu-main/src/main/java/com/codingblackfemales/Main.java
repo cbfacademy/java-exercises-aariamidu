@@ -22,9 +22,10 @@ public class Main {
         double convertedAmount = basicCurrencyConverter.convertCurrency(sourceCurrencyCode, destinationCurrencyCode,
                 amount);
         
+        String formattedAmount = String.format("%.2f", convertedAmount);
 
-        // Print the converted amount and destination currency
-        System.out.println("The amount you will get in " + destinationCurrencyCode + " is " + convertedAmount);
-    }
+        // Print the formatted amount and destination currency
+        System.out.println("The amount you will get in " + destinationCurrencyCode + " is " + formattedAmount);
+   }
 }
 //how to format amount
