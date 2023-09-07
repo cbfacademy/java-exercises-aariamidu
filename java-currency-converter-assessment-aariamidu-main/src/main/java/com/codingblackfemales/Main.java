@@ -14,7 +14,7 @@ public class Main {
 
         // Source currency code, destination currency code and amount being converted
         String sourceCurrencyCode = "GBP";
-        String destinationCurrencyCode = "EUR";
+        String destinationCurrencyCode = "JPY";
         Double amount = 200.00;
        
 
@@ -23,9 +23,19 @@ public class Main {
                 amount);
         
         String formattedAmount = String.format("%.2f", convertedAmount);
+        
+        String destinationCurrencySymbol = "";
+        if ("USD".equals(destinationCurrencyCode)) {
+            destinationCurrencySymbol = "$";
+        } if ("GBP".equals(destinationCurrencyCode)) {
+            destinationCurrencySymbol = "£";
+        } if ("JPY".equals(destinationCurrencyCode)) {
+            destinationCurrencySymbol = " ¥";
+        } else if ("EUR".equals(destinationCurrencyCode)) {
+            destinationCurrencySymbol = "€";
+        }
 
         // Print the formatted amount and destination currency
-        System.out.println("The amount you will get in " + destinationCurrencyCode + " is " + formattedAmount);
+        System.out.println("The amount you will get in " + destinationCurrencyCode + " is " + destinationCurrencySymbol + formattedAmount);
    }
 }
-//how to format amount
