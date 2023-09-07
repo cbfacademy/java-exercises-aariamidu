@@ -1,7 +1,5 @@
 package com.codingblackfemales;
 
-import java.util.Arrays;
-
 import java.util.Map;
 
 public class BasicCurrencyConverter implements CurrencyConverter {
@@ -12,7 +10,11 @@ public class BasicCurrencyConverter implements CurrencyConverter {
     }
 
     public double convertCurrency(String sourceCurrencyCode, String destinationCurrencyCode, double amount) {
-        double exchangeRate = getExchangeRate(sourceCurrencyCode, destinationCurrencyCode);
+        double exchangeRate = getExchangeRate(sourceCurrencyCode, destinationCurrencyCode); 
+        if (amount<=0){
+            System.out.println("Please change the amount");
+            return 0;
+        }
         return amount * exchangeRate;
     }
 
@@ -22,44 +24,32 @@ public class BasicCurrencyConverter implements CurrencyConverter {
     }
 
     public double getExchangeRate(String sourceCurrencyCode, String destinationCurrencyCode) {
-
-        if (destinationCurrencyCode == null) {
-            throw new IllegalArgumentException("Invalid currency codes provided.");
+         if (sourceCurrencyCode == null || sourceCurrencyCode.isEmpty()) {
+            System.out.println("This is an invalid currency code please provide another one from the list above.");
+            return 0;
         }
-        if (sourceCurrencyCode == null) {
-            throw new IllegalArgumentException("Invalid currency codes provided.");
+        if (destinationCurrencyCode == null || destinationCurrencyCode.isEmpty()) {
+            System.out.println("This is an invalid currency code please provide another one from the list above.");
+            return 0;
         }
-        if (exchangeRates == null) {
-            throw new IllegalArgumentException("Invalid exchange rates provided.");
-        }
+       
+       
         Double sourceExchangeRate = exchangeRates.get(sourceCurrencyCode);
         Double destinationExchangeRate = exchangeRates.get(destinationCurrencyCode);
-
+        if (sourceExchangeRate == null) {
+            System.out.println("This exchange rate has not been found for source currency: " + sourceCurrencyCode);
+            return 0;
+        }
+        if (destinationExchangeRate == null) {
+            System.out.println("This exchange rate has not been found for destination currency: " + destinationCurrencyCode);
+            return 0;
+        }
+        
         double convertedAmount = (destinationExchangeRate / sourceExchangeRate);
-
+        
         return convertedAmount;
 
     }
 
-    public static void main(String[] args) {
-        // CurrenciesGBP class with the getAllExchangeRates() method
-        CurrenciesGBP currenciesGBP = new CurrenciesGBP();
-        BasicCurrencyConverter basicCurrencyConverter = new BasicCurrencyConverter(currenciesGBP);
-
-        // Get available currency codes
-        String[] currencyCodes = basicCurrencyConverter.getCurrencyCodes();
-        System.out.println("Available currency codes: " + Arrays.toString(currencyCodes));
-
-        // Source currency code, destination currency code and amount being converted
-        String sourceCurrencyCode = "JPY";
-        String destinationCurrencyCode = "EUR";
-        Double amount = 200.0;
-
-        // Convert currency
-        double convertedAmount = basicCurrencyConverter.convertCurrency(sourceCurrencyCode, destinationCurrencyCode,
-                amount);
-
-        // Print the converted amount and destination currency
-        System.out.println("The amount you will get in " + destinationCurrencyCode + " is " + convertedAmount);
-    }
+   
 }
