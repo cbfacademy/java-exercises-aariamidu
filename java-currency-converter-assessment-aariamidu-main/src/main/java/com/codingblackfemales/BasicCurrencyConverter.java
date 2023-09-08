@@ -12,7 +12,7 @@ public class BasicCurrencyConverter implements CurrencyConverter {
     public double convertCurrency(String sourceCurrencyCode, String destinationCurrencyCode, double amount) {
         double exchangeRate = getExchangeRate(sourceCurrencyCode, destinationCurrencyCode); 
         if (amount<=0){
-            System.out.println("Please change the amount");
+            System.out.println("Please change the amount to more than 0");
             return 0;
         }
         return amount * exchangeRate;
@@ -25,11 +25,11 @@ public class BasicCurrencyConverter implements CurrencyConverter {
 
     public double getExchangeRate(String sourceCurrencyCode, String destinationCurrencyCode) {
          if (sourceCurrencyCode == null || sourceCurrencyCode.isEmpty()) {
-            System.out.println("This is an invalid currency code please provide another one from the list above.");
+            System.out.println("This is an invalid currency code, please provide another one from the list above.");
             return 0;
         }
         if (destinationCurrencyCode == null || destinationCurrencyCode.isEmpty()) {
-            System.out.println("This is an invalid currency code please provide another one from the list above.");
+            System.out.println("This is an invalid currency code, please provide another one from the list above.");
             return 0;
         }
        

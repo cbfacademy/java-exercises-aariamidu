@@ -21,9 +21,9 @@ public class Main {
         // Convert currency
         double convertedAmount = basicCurrencyConverter.convertCurrency(sourceCurrencyCode, destinationCurrencyCode,
                 amount);
-        
+        // converts amount to  2.d.p
         String formattedAmount = String.format("%.2f", convertedAmount);
-        
+        // adds currency symbols
         String destinationCurrencySymbol = "";
         if ("USD".equals(destinationCurrencyCode)) {
             destinationCurrencySymbol = "$";
